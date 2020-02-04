@@ -8,7 +8,10 @@ pipeline {
                 docker { image 'node:alpine' }
             }
             steps {
-                echo 'Prepare'
+                sh 'npm install'
+            }
+            steps {
+                sh 'npm run lint'
             }
         }
         stage('Build') {
@@ -16,7 +19,7 @@ pipeline {
                 docker { image 'node:alpine' }
             }
             steps {
-                echo 'Build'      
+                'npm run build'
             }
         }
         stage('Static Analysis') {
@@ -32,7 +35,7 @@ pipeline {
                 docker { image 'node:alpine' }
             }
             steps {
-                echo 'Test'
+                sh 'npm run test'
             }
         }
         stage('e2e Test') {
